@@ -1,0 +1,18 @@
+/* Reset básico */
+
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  line-height: 1.5;
+  text-decoration: none;
+  list-style-type: none;
+  box-sizing: border-box;
+  vertical-align: baseline;
+}
+
+input, input:focus, input:focus-visible {
+  background-color: transparent;  
+  outline: none;
+  appearance: none;
+}
