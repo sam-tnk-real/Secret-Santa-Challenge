@@ -91,7 +91,6 @@ body {
 
 .friend-list-container {
   width: 100%;
-  /* flex-grow: 1; */
 
   display: flex;
   justify-content: center;
@@ -151,4 +150,9 @@ body {
 
 .btn-style:active {
   transform: scale(1.02);
+}
+
+#result-style {
+  outline: 10px solid #7ddf644b;
+  border-color: var(--btn-color);
 }

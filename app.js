@@ -1,12 +1,13 @@
 "use strict";
 
 // feature: adicionar amigos na lista
-let listOfFriends = new Array(); 
+let listOfFriends = new Array();
 
-const friendNameInput = document.querySelector(".input-add-name"); 
+const friendNameInput = document.querySelector(".input-add-name");
 const listContainer = document.querySelector(".friend-list-container");
 const btnAddFriend = document.querySelector(".button-input");
 const btnDraw = document.querySelector(".button-draw");
+let switchList = false;
 
 const createItem = (tagName, text) => {
   let newItem = document.createElement(tagName);
@@ -15,25 +16,86 @@ const createItem = (tagName, text) => {
   newItem.appendChild(content);
 
   return newItem;
-}
+};
 
-const draw = (list) => {
-  return (Math.random() * list.length) + 1; 
-}
+const raffler = (list) => {
+  return Math.floor(Math.random() * list.length);
+};
 
 // adiciona o nome na lista de amigos e exibe o nome na tela
-btnAddFriend.addEventListener("click", (event) => {
-  event.preventDefault();
+btnAddFriend.addEventListener(
+  "click",
+  (event) => {
+    event.preventDefault();
 
-  let name = friendNameInput.value;
-  friendNameInput.value = "";
+    if (switchList) {
+      // limpa os itens do container para um novo sorteio
+      listContainer.replaceChildren();
+      switchList = false;
+    }
 
-  if (name.trim().length === 0) {
-    alert("Adione um nome válido.");  
-    return;
-  }
+    // normaliza a entreda e limpa o input
+    let name = friendNameInput.value.toUpperCase();
+    friendNameInput.value = "";
 
-  listOfFriends.push(name);
-  listContainer.appendChild(createItem("li", name));
+    if (name.trim().length === 0) {
+      // libera o thread usado pelo handle, passando o alert para o final da fila
+      Promise.resolve().then(() => {
+        alert("Adione um nome válido.");
+      });
+      return;
+    }
 
-}, false);
+    if (listOfFriends.includes(name)) {
+      Promise.resolve().then(() => {
+        alert("Esse amigo já foi incluso na lista.");
+      });
+      return;
+    }
+
+    listOfFriends.push(name);
+
+    /*
+      poderia adiocionar o elemente diretamente, sem o foreach, mas como a atividade 
+      solicitava o emprego do laço, ele foi utilizado.
+    */
+    listContainer.replaceChildren();
+    listOfFriends.forEach((item) => {
+      listContainer.appendChild(createItem("li", item));
+    });
+  },
+  false
+);
+
+// sorteia um amigo secreto da lista
+btnDraw.addEventListener(
+  "click",
+  (event) => {
+    event.preventDefault();
+
+    if (listOfFriends.length !== 0) {
+      let randomIndex = raffler(listOfFriends);
+      let resultItem = createItem(
+        "li",
+        `O amigo sorteado é: ${listOfFriends[randomIndex]}`
+      );
+
+      // limpa a lista de amigos para adicionar o único escolhido
+      listContainer.replaceChildren();
+
+      listContainer.appendChild(resultItem);
+
+      document.querySelector(".friend-list-container > li").setAttribute("id", "result-style");
+
+      switchList = true;
+      listOfFriends = new Array();
+
+    } else {
+      Promise.resolve().then(() => {
+        alert("Não há amigos para o sorteio...");
+      });
+      return;
+    }
+  },
+  false
+);

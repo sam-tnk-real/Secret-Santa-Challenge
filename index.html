@@ -12,10 +12,10 @@
     <title>Sortear Amigo Secreto</title>
 
     <!-- folhas de estilo -->
-    <link rel="stylesheet" href="modular.css">
+    <link rel="stylesheet" href="modular.css" />
 
     <!-- scripts -->
-     <script src="app.js" defer></script>
+    <script src="app.js" defer></script>
   </head>
   <body>
     <main class="main-container">
@@ -28,29 +28,39 @@
       </header>
       <section class="name-picker-sec">
         <div class="name-picker-input-container">
-          <label class="name-picker-label" for="input-names">Adicione seus amigos na lista</label>
+          <label class="name-picker-label" for="input-names"
+            >Adicione seus amigos na lista</label
+          >
           <div class="input-container">
             <input
-            class="input-add-name"
-            type="text"
-            name="input-names"
-            id="input-names"
-            size="40"
-            maxlength="40"
-            autofocus="autofocus"
-            placeholder="Digite um nome"
+              class="input-add-name"
+              type="text"
+              name="input-names"
+              id="input-names"
+              size="40"
+              maxlength="40"
+              autofocus="autofocus"
+              placeholder="Digite um nome"
             />
 
-            <button type="button" class="button-input btn-style" aria-label="Adicionar amigo na lista">
+            <button
+              type="button"
+              class="button-input btn-style"
+              aria-label="Adicionar amigo na lista"
+            >
               adicionar
             </button>
           </div>
         </div>
 
         <ul class="friend-list-container"></ul>
-        
+
         <button type="button" class="button-draw btn-style">
-          <img src="./assets/circle-play-regular.svg" width="30px" alt="símbolo de play circular" />
+          <img
+            src="./assets/circle-play-regular.svg"
+            width="30px"
+            alt="símbolo de play circular"
+          />
           sortear amigo
         </button>
       </section>
